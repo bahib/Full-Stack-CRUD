@@ -65,6 +65,22 @@ app.put("/edit/:id", (req, res) => {
     });
 });
 
+// Create an api endpoint for deleting a student record in the database
+app.delete("/delete/:id", (req, res) => {
+    const id = req.params.id;
+
+    const sqlDelete = "DELETE FROM student WHERE ID = ?";
+    db.query(sqlDelete, id, (err, result) => {
+        if (err) {
+            console.error("Error deleting values:", err);
+            res.status(500).send(err);
+        } else {
+            console.log("Values deleted");
+            res.status(200).send("Values deleted");
+        }
+    });
+});
+
 app.listen(8081, () => {
     console.log('Server is running on port 8081');
     });
